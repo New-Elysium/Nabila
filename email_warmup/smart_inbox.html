@@ -1,0 +1,122 @@
+<div class="max-w-7xl mx-auto">
+    <div class="flex justify-between items-center mb-8">
+        <div>
+            <h1 class="text-2xl font-semibold mb-2">Smart Inbox</h1>
+            <p class="secondary-text">
+                Monitor your warmup emails and inbox placement performance.
+            </p>
+        </div>
+        <div class="flex gap-3">
+            <button 
+                class="secondary-text px-4 py-2 rounded-xl border border-slate-700 flex items-center gap-2"
+                hx-get="/api/inbox/refresh"
+                hx-trigger="click">
+                <i class="material-icons">refresh</i>
+                Refresh
+            </button>
+            <button class="gradient-button px-6 py-2 rounded-xl flex items-center gap-2">
+                <i class="material-icons">tune</i>
+                Configure Rules
+            </button>
+        </div>
+    </div>
+
+    <!-- Inbox Stats -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+        <div class="card p-6">
+            <div class="flex items-center gap-3 mb-2">
+                <i class="material-icons text-blue-400">inbox</i>
+                <p class="secondary-text">Inbox</p>
+            </div>
+            <h3 class="text-2xl font-bold">1,245</h3>
+            <div class="text-green-400 text-sm flex items-center mt-2">
+                <i class="material-icons text-sm">arrow_upward</i>
+                98.5% Rate
+            </div>
+        </div>
+
+        <div class="card p-6">
+            <div class="flex items-center gap-3 mb-2">
+                <i class="material-icons text-yellow-400">report</i>
+                <p class="secondary-text">Spam</p>
+            </div>
+            <h3 class="text-2xl font-bold">12</h3>
+            <div class="text-red-400 text-sm flex items-center mt-2">
+                <i class="material-icons text-sm">arrow_downward</i>
+                1.2% Rate
+            </div>
+        </div>
+
+        <div class="card p-6">
+            <div class="flex items-center gap-3 mb-2">
+                <i class="material-icons text-green-400">mark_email_read</i>
+                <p class="secondary-text">Opens</p>
+            </div>
+            <h3 class="text-2xl font-bold">956</h3>
+            <div class="text-green-400 text-sm flex items-center mt-2">
+                <i class="material-icons text-sm">arrow_upward</i>
+                76.8% Rate
+            </div>
+        </div>
+
+        <div class="card p-6">
+            <div class="flex items-center gap-3 mb-2">
+                <i class="material-icons text-purple-400">reply</i>
+                <p class="secondary-text">Replies</p>
+            </div>
+            <h3 class="text-2xl font-bold">428</h3>
+            <div class="text-green-400 text-sm flex items-center mt-2">
+                <i class="material-icons text-sm">arrow_upward</i>
+                34.4% Rate
+            </div>
+        </div>
+    </div>
+
+    <!-- Email List -->
+    <div class="card p-6">
+        <div class="flex justify-between items-center mb-6">
+            <h2 class="text-lg font-semibold">Recent Emails</h2>
+            <div class="flex gap-4">
+                <div class="relative">
+                    <input type="search" 
+                           placeholder="Search emails..." 
+                           class="bg-slate-300 rounded-xl px-4 py-2 pl-10 w-64"
+                           hx-get="/api/inbox/search"
+                           hx-trigger="keyup changed delay:500ms"
+                           hx-target="#email-list">
+                    <i class="material-icons absolute left-3 top-2.5 text-gray-400">search</i>
+                </div>
+                <select class="bg-slate-300 rounded-xl px-4 py-2">
+                    <option>All Emails</option>
+                    <option>Inbox Only</option>
+                    <option>Spam Only</option>
+                </select>
+            </div>
+        </div>
+
+        <div id="email-list" class="space-y-4">
+            <!-- Email Item -->
+            <div class="flex items-center gap-4 p-4 hover:bg-slate-300 rounded-xl transition-colors">
+                <input type="checkbox" class="rounded border-slate-600">
+                <div class="flex-1">
+                    <div class="flex items-center gap-2">
+                        <span class="font-medium">Warmup System</span>
+                        <span class="bg-green-500/20 text-green-300 px-2 py-0.5 rounded-full text-xs">Inbox</span>
+                    </div>
+                    <p class="secondary-text text-sm mt-1">
+                        Your daily warmup email has been delivered successfully...
+                    </p>
+                </div>
+                <div class="text-right">
+                    <div class="secondary-text text-sm">10:45 AM</div>
+                    <div class="flex items-center gap-1 mt-1 text-green-400 text-xs">
+                        <i class="material-icons text-sm">check_circle</i>
+                        Opened
+                    </div>
+                </div>
+            </div>
+
+            <!-- Repeat email items... -->
+        </div>
+    </div>
+</div>

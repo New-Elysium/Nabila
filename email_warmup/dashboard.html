@@ -1,0 +1,130 @@
+<div class="max-w-7xl mx-auto">
+    <div class="flex justify-between items-center mb-8">
+        <div>
+            <h1 class="text-2xl font-semibold mb-2">Email Warmup</h1>
+            <p class="secondary-text">
+                Warm up your email addresses automatically with smart inbox placement.
+            </p>
+        </div>
+        <button 
+            class="signup-button px-6 py-3 rounded-xl flex items-center gap-2"
+            @click="$dispatch('show-popup', {message: 'Adding new email...', type: 'valid'})">
+            <i class="material-icons">add</i>
+            Add Email
+        </button>
+    </div>
+
+    <!-- Stats Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <div class="card p-6">
+            <div class="flex justify-between items-start mb-4">
+                <div>
+                    <p class="secondary-text mb-1">Daily Warmup Emails</p>
+                    <h3 class="text-2xl font-bold">124</h3>
+                </div>
+                <span class="text-green-400 flex items-center">
+                    <i class="material-icons">trending_up</i>
+                    +12%
+                </span>
+            </div>
+            <div class="h-2 bg-slate-700 rounded-full overflow-hidden">
+                <div class="h-2 signup-button" style="width: 75%"></div>
+            </div>
+        </div>
+
+        <div class="card p-6">
+            <div class="flex justify-between items-start mb-4">
+                <div>
+                    <p class="secondary-text mb-1">Inbox Placement</p>
+                    <h3 class="text-2xl font-bold">98.5%</h3>
+                </div>
+                <span class="text-green-400 flex items-center">
+                    <i class="material-icons">trending_up</i>
+                    +2.3%
+                </span>
+            </div>
+            <div class="h-2 bg-slate-700 rounded-full overflow-hidden">
+                <div class="h-2 gradient-button" style="width: 98%"></div>
+            </div>
+        </div>
+
+        <div class="card p-6">
+            <div class="flex justify-between items-start mb-4">
+                <div>
+                    <p class="secondary-text mb-1">Response Rate</p>
+                    <h3 class="text-2xl font-bold">92%</h3>
+                </div>
+                <span class="text-green-400 flex items-center">
+                    <i class="material-icons">trending_up</i>
+                    +5%
+                </span>
+            </div>
+            <div class="h-2 bg-slate-700 rounded-full overflow-hidden">
+                <div class="h-2 signup-button" style="width: 92%"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Email Accounts Table -->
+    <div class="card p-6">
+        <div class="flex justify-between items-center mb-6">
+            <h2 class="text-lg font-semibold">Connected Emails</h2>
+            <div class="flex gap-2">
+                <button class="secondary-text p-2 rounded-lg hover:bg-slate-700">
+                    <i class="material-icons">filter_list</i>
+                </button>
+                <button class="secondary-text p-2 rounded-lg hover:bg-slate-700">
+                    <i class="material-icons">refresh</i>
+                </button>
+            </div>
+        </div>
+
+        <div class="overflow-x-auto">
+            <table class="w-full">
+                <thead>
+                    <tr class="text-left border-b border-slate-700">
+                        <th class="px-6 py-4 secondary-text">EMAIL</th>
+                        <th class="px-6 py-4 secondary-text">STATUS</th>
+                        <th class="px-6 py-4 secondary-text">DAILY LIMIT</th>
+                        <th class="px-6 py-4 secondary-text">WARMUP DAYS</th>
+                        <th class="px-6 py-4 secondary-text">INBOX RATE</th>
+                        <th class="px-6 py-4 secondary-text">ACTIONS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="border-b border-slate-700">
+                        <td class="px-6 py-4">
+                            <div class="flex items-center gap-2">
+                                <i class="material-icons text-indigo-400">mail</i>
+                                john@example.com
+                            </div>
+                        </td>
+                        <td class="px-6 py-4">
+                            <span class="bg-green-500/20 text-green-300 px-3 py-1 rounded-full text-sm">
+                                Active
+                            </span>
+                        </td>
+                        <td class="px-6 py-4">40</td>
+                        <td class="px-6 py-4">15/30</td>
+                        <td class="px-6 py-4">
+                            <div class="flex items-center gap-2">
+                                98.5%
+                                <span class="text-green-400 text-xs">+0.5%</span>
+                            </div>
+                        </td>
+                        <td class="px-6 py-4">
+                            <div class="flex gap-2">
+                                <button class="gradient-button p-2 rounded-lg">
+                                    <i class="material-icons">pause</i>
+                                </button>
+                                <button class="gradient-button p-2 rounded-lg">
+                                    <i class="material-icons">settings</i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

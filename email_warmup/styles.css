@@ -1,0 +1,305 @@
+html {
+  scroll-behavior: smooth;
+}
+
+
+/* Base styles for scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 15px;
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #F1F5F9;
+  /* bg-slate-100 */
+  border-radius: 0;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #374151;
+  /* bg-slate-300 */
+  border-radius: 0;
+}
+
+/* Dark mode styles for scrollbar */
+[data-theme='dark'] ::-webkit-scrollbar-track {
+  background-color: rgba(55, 65, 81, 0.16);
+  /* bg-slate-500 with 0.16 opacity */
+}
+
+[data-theme='dark'] ::-webkit-scrollbar-thumb {
+  background-color: rgba(55, 65, 81, 0.5);
+  /* bg-slate-500 with 50% opacity */
+}
+
+:root {
+  --text-color: #1e3a8a;
+  --secondary-text: #697888;
+  --button-text: #fee2e2;
+  --card-bg: #ffffff;
+  --card-shadow: rgba(0, 0, 0, 0.1);
+  --input-bg: #f3f4f6;
+  --input-text: #1f2937;
+  --input-border: #d1d5db;
+  --gradient-color-1: rgba(75, 0, 130, 0.8);   /* Deep purple with 80% opacity */
+  --gradient-color-2: rgba(225, 166, 242, 0.5); /* Light purple with 50% opacity */
+  --gradient-color-3: rgba(255, 247, 202, 0.3); /* Light yellow with 30% opacity */
+  --gradient-bg: linear-gradient(to right, #FFF7CA, #ffffff75, #97ECFF);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --text-color: #e5e7eb;
+    --nav-text-color: #9ca3af;
+    --nav-hover-bg: #374151;
+    --nav-hover-text: #60a5fa;
+    --secondary-text: #888697;
+    --button-text: #fef2f2;
+    --card-bg: #374151;
+    --card-shadow: rgba(255, 255, 255, 0.1);
+    --input-bg: #374151;
+    --input-text: #e5e7eb;
+    --input-border: #4b5563;
+    --gradient-color-1: rgba(26, 0, 51, 0.8);   /* Very dark purple with 80% opacity */
+    --gradient-color-2: rgba(75, 0, 130, 0.5);  /* Deep purple with 50% opacity */
+    --gradient-color-3: rgba(139, 75, 139, 0.3); /* Medium purple with 30% opacity */
+    --gradient-bg: linear-gradient(to bottom, #020925,  #053540 , #1f2937);
+  }
+}
+
+
+body {
+  background: var(--gradient-bg);
+  color: var(--text-color);
+}
+
+
+#gradient {
+  position: fixed;
+  z-index: -1; /* Ensure it's behind other content */
+  pointer-events: none; /* Allows clicks to pass through */
+  width: 200vw; /* Twice the viewport width */
+  height: 200vh; /* Twice the viewport height */
+  top: -50vh; /* Position it off-screen */
+  left: -50vw; /* Position it off-screen */
+  background-image: radial-gradient(
+    circle at center,
+    var(--gradient-color-1) 0%,
+    var(--gradient-color-2) 25%,
+    var(--gradient-color-3) 50%,
+    transparent 75%
+  );
+  opacity: 0.3; /* Overall opacity of the gradient */
+  transition: transform 0.5s ease-out; /* Smooth transition for movement */
+}
+
+.bg-gradient-text {
+  background-image: linear-gradient(to right, #93c5fd, #c2410c, #1e3a8a);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.secondary-text {
+  color: var(--secondary-text);
+}
+
+.signup-button {
+  background-image: linear-gradient(to right, #4169E1, #4682B4, #1E90FF);
+  color: var(--button-text);
+}
+
+@media (prefers-color-scheme: dark) {
+  .signup-button {
+    background-image: linear-gradient(to right, #b48d10, #cd1f25);
+    color: var(--button-text);
+  }
+}
+
+.shine-effect {
+  position: relative;
+  overflow: hidden;
+}
+
+.shine-effect::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    to bottom right,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.1) 40%,
+    rgba(255, 255, 255, 0.5) 50%,
+    rgba(255, 255, 255, 0.1) 60%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: rotate(45deg);
+  animation: shine 3s infinite;
+}
+
+@keyframes shine {
+  0% {
+    top: -50%;
+    left: -50%;
+  }
+  100% {
+    top: 150%;
+    left: 150%;
+  }
+}
+
+/* Optional: Pause animation on hover */
+.shine-effect:hover::before {
+  animation-play-state: paused;
+}
+
+.gradient-button {
+  background-image: linear-gradient(to right, #ec4899, #9333ea);
+  color: var(--button-text);
+}
+
+@media (prefers-color-scheme: dark) {
+  .gradient-button {
+    background-image: linear-gradient(to right, #11998e, #182848);
+  }
+}
+
+.card {
+  background-color: var(--card-bg);
+  box-shadow: 0 4px 6px var(--card-shadow);
+}
+
+.input-field {
+  background-color: var(--input-bg);
+  color: var(--input-text);
+  border: 1px solid var(--input-border);
+}
+
+.popup {
+  position: fixed;
+  top: 30px;
+  right: 30px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  color: white;
+  font-weight: bold;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.popup.show {
+  opacity: 1;
+}
+
+.popup.valid {
+  background-color: #4CAF50;
+}
+
+.popup.invalid {
+  background-color: #F44336;
+}
+
+.popup.timeout {
+  background-color: #FF9800;
+}
+
+.input-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.input-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 20px;
+}
+
+.input-icon.valid {
+  color: #4CAF50;
+}
+
+.input-icon.invalid {
+  color: #F44336;
+}
+
+.tab-container {
+  display: flex;
+  position: relative;
+  width: 300px;
+  margin-bottom: 16px;
+}
+
+.tab-button {
+  flex: 1;
+  text-align: center;
+  padding: 10px;
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
+  transition: color 0.3s ease-in-out;
+}
+
+.tab-button.active-tab {
+  color: white;
+}
+
+.tab-slider {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 50%;
+  background-color: #d3349e;
+  border-radius: 8px;
+  transition: transform 0.3s ease-in-out;
+  z-index: 0;
+}
+
+@media (prefers-color-scheme: dark) {
+  .tab-slider {
+    background-color: #34d399;
+  }
+}
+
+.new-badge {
+  background-color: #e1b61d;
+  color: white;
+  font-size: 0.75rem;
+  padding: 2px 6px;
+  border-radius: 4px;
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  transform: rotate(12deg);
+}
+
+.form-content {
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.form-content.visible {
+  opacity: 1;
+}
+
+#bulk-paste {
+  width: 100%;
+  height: 120px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 8px;
+  resize: none;
+  transition: border-color 0.3s ease-in-out;
+}
+
+#bulk-paste:focus {
+  border-color: #34d399;
+  border-width: 2px;
+  outline: none;
+}

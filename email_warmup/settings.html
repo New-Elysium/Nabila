@@ -1,0 +1,229 @@
+<div class="max-w-7xl mx-auto">
+    <div class="mb-8">
+        <h1 class="text-2xl font-semibold mb-2">Settings</h1>
+        <p class="secondary-text">
+            Configure your email warmup preferences and automation rules.
+        </p>
+    </div>
+
+    <!-- Settings Grid -->
+    <div class="grid grid-cols-3 gap-6">
+        <!-- Main Settings Column -->
+        <div class="col-span-2 space-y-6">
+            <!-- Warmup Settings Card -->
+            <div class="card p-6">
+                <h2 class="text-lg font-semibold mb-6">Warmup Settings</h2>
+                
+                <div class="space-y-6">
+                    <div>
+                        <label class="block secondary-text mb-2">Daily Email Limit</label>
+                        <div class="flex items-center gap-4">
+                            <input type="range" 
+                                   min="10" 
+                                   max="100" 
+                                   value="40"
+                                   class="w-full"
+                                   hx-post="/api/settings/limit"
+                                   hx-trigger="change">
+                            <span class="w-16 text-center">40</span>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block secondary-text mb-2">Warmup Schedule</label>
+                        <div class="grid grid-cols-7 gap-2">
+                            <button class="gradient-button p-2 rounded-lg">Mon</button>
+                            <button class="gradient-button p-2 rounded-lg">Tue</button>
+                            <button class="p-2 rounded-lg bg-slate-300">Wed</button>
+                            <button class="gradient-button p-2 rounded-lg">Thu</button>
+                            <button class="gradient-button p-2 rounded-lg">Fri</button>
+                            <button class="p-2 rounded-lg bg-slate-300">Sat</button>
+                            <button class="p-2 rounded-lg bg-slate-300">Sun</button>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block secondary-text mb-2">Warmup Intensity</label>
+                        <select class="bg-slate-300 rounded-xl px-4 py-2 w-full"
+                                hx-post="/api/settings/intensity"
+                                hx-trigger="change">
+                            <option>Aggressive (faster warmup)</option>
+                            <option selected>Balanced (recommended)</option>
+                            <option>Conservative (slower warmup)</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block secondary-text mb-2">Target Warmup Goals</label>
+                        <div class="grid grid-cols-2 gap-4">
+                            <input type="number" 
+                                   placeholder="Daily email goal"
+                                   value="50"
+                                   class="bg-slate-300 rounded-xl px-4 py-2"
+                                   hx-post="/api/settings/goals"
+                                   hx-trigger="change">
+                            <input type="number" 
+                                   placeholder="Days to reach goal"
+                                   value="30"
+                                   class="bg-slate-300 rounded-xl px-4 py-2"
+                                   hx-post="/api/settings/duration"
+                                   hx-trigger="change">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Auto-Response Settings Card -->
+            <div class="card p-6">
+                <h2 class="text-lg font-semibold mb-6">Auto-Response Settings</h2>
+                
+                <div class="space-y-6">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="font-medium">Enable Auto-Responses</h3>
+                            <p class="secondary-text text-sm mt-1">Automatically respond to warmup emails</p>
+                        </div>
+                        <button class="p-2 rounded-lg"
+                                hx-post="/api/settings/toggle-responses"
+                                hx-trigger="click">
+                            <i class="material-icons">toggle_on</i>
+                        </button>
+                    </div>
+
+                    <div>
+                        <label class="block secondary-text mb-2">Response Delay</label>
+                        <select class="bg-slate-300 rounded-xl px-4 py-2 w-full"
+                                hx-post="/api/settings/delay"
+                                hx-trigger="change">
+                            <option>Instant</option>
+                            <option>1-5 minutes</option>
+                            <option selected>5-15 minutes</option>
+                            <option>15-30 minutes</option>
+                            <option>Random (0-30 minutes)</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block secondary-text mb-2">Response Templates</label>
+                        <div class="space-y-4">
+                            <textarea 
+                                class="bg-slate-300 rounded-xl px-4 py-2 w-full h-24 resize-none"
+                                placeholder="Enter your response template..."
+                                hx-post="/api/settings/templates"
+                                hx-trigger="change">Thanks for your email! This is a warm response to help with email deliverability.</textarea>
+                            <button 
+                                class="text-indigo-400 text-sm flex items-center gap-1"
+                                hx-get="/api/settings/add-template"
+                                hx-trigger="click">
+                                <i class="material-icons text-sm">add_circle</i>
+                                Add Another Template
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Spam Prevention Settings -->
+            <div class="card p-6">
+                <h2 class="text-lg font-semibold mb-6">Spam Prevention</h2>
+                
+                <div class="space-y-6">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="font-medium">SPF Record Monitoring</h3>
+                            <p class="secondary-text text-sm mt-1">Monitor SPF records for proper configuration</p>
+                        </div>
+                        <button class="p-2 rounded-lg">
+                            <i class="material-icons">toggle_on</i>
+                        </button>
+                    </div>
+
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="font-medium">DKIM Verification</h3>
+                            <p class="secondary-text text-sm mt-1">Verify DKIM signatures on all emails</p>
+                        </div>
+                        <button class="p-2 rounded-lg">
+                            <i class="material-icons">toggle_on</i>
+                        </button>
+                    </div>
+
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="font-medium">Content Scanning</h3>
+                            <p class="secondary-text text-sm mt-1">Scan email content for spam triggers</p>
+                        </div>
+                        <button class="p-2 rounded-lg">
+                            <i class="material-icons">toggle_on</i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Sidebar Settings -->
+        <div class="space-y-6">
+            <!-- Notification Settings -->
+            <div class="card p-6">
+                <h2 class="text-lg font-semibold mb-6">Notifications</h2>
+                
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between">
+                        <span class="secondary-text">Daily Reports</span>
+                        <button class="rounded-lg p-2">
+                            <i class="material-icons">toggle_off</i>
+                        </button>
+                    </div>
+
+                    <div class="flex items-center justify-between">
+                        <span class="secondary-text">Spam Alerts</span>
+                        <button class="p-2 rounded-lg">
+                            <i class="material-icons">toggle_on</i>
+                        </button>
+                    </div>
+
+                    <div class="flex items-center justify-between">
+                        <span class="secondary-text">Goal Achievements</span>
+                        <button class="p-2 rounded-lg">
+                            <i class="material-icons">toggle_on</i>
+                        </button>
+                    </div>
+
+                    <div class="flex items-center justify-between">
+                        <span class="secondary-text">System Updates</span>
+                        <button class="p-2 rounded-lg">
+                            <i class="material-icons">toggle_on</i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Account Settings -->
+            <div class="card p-6">
+                <h2 class="text-lg font-semibold mb-6">Account</h2>
+                
+                <div class="space-y-4">
+                    <button class="flex items-center gap-2 secondary-text w-full p-2 hover:bg-slate-300 rounded-lg transition-colors">
+                        <i class="material-icons">person</i>
+                        Profile Settings
+                    </button>
+
+                    <button class="flex items-center gap-2 secondary-text w-full p-2 hover:bg-slate-300 rounded-lg transition-colors">
+                        <i class="material-icons">vpn_key</i>
+                        API Keys
+                    </button>
+
+                    <button class="flex items-center gap-2 secondary-text w-full p-2 hover:bg-slate-300 rounded-lg transition-colors">
+                        <i class="material-icons">credit_card</i>
+                        Billing
+                    </button>
+
+                    <button class="flex items-center gap-2 text-red-400 w-full p-2 hover:bg-slate-300 rounded-lg transition-colors">
+                        <i class="material-icons">logout</i>
+                        Logout
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
