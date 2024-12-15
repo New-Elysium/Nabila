@@ -9,12 +9,15 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.14.1/cdn.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/htmx/2.0.2/htmx.min.js"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+   
+
     <link href="/web/styles.css" rel="stylesheet">
     <style>
         [x-cloak] {
             display: none !important;
         }
     </style>
+    
 </head>
 
 <body class="min-h-screen" x-data="{ darkMode: true, activeTab: 'dashboard' }">
@@ -63,7 +66,10 @@
             </div>
 
             <div class="mt-auto p-6 border-t border-slate-700 text-center">
-                <div class="text-4xl font-bold">85%</div>
+                
+                <div class="text-4xl font-bold">
+                    <span id="count1">0</span>%
+                </div>
                 <div class="secondary-text mb-4">Warmup Score</div>
                 <button class="gradient-button w-full py-2 px-4 rounded-xl transition-all"
                     hx-get="/api/warmup/configure" hx-trigger="click" hx-target="#warmup-modal"
@@ -87,5 +93,22 @@
     </div>
 </body>
 
+<script type="module">
+    import {CountUp} from '/node_modules/countup.js/dist/countUp.min.js';
+    window.addEventListener('load', () => {
+        const option1={
+            decimalPlaces: 0,
+            duration: 2,
+            useGrouping:false,
+        }
+        const option2={
+            decimalPlaces: 0,
+            duration: 2,
+            useGrouping:false,
+        }
+        let percentage1 = new CountUp('count1',85,option1);
+        percentage1();
+    });
+</script>
 
 </html>
