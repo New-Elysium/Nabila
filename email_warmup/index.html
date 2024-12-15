@@ -11,7 +11,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
    
 
-    <link href="/web/styles.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
     <style>
         [x-cloak] {
             display: none !important;
@@ -32,6 +32,8 @@
                     <img  src="https://cdn.brandfetch.io/id2CH2MTrR/w/600/h/130/theme/dark/logo.png?c=1dxbfHSJFAPEGdCLU4o5B"
                         class="w-24 " alt="DBounce.Me" />
                     <span class="text-xl font-semibold bg-gradient-text">Email Warmup</span>
+                   
+
                 </div>
                 <nav class="space-y-2">
                     <!-- Navigation items with HTMX -->
@@ -42,12 +44,15 @@
                         Dashboard
                     </a>
 
-                    <a href="#" @click="activeTab = 'campaigns'" :class="{'text-indigo-400': activeTab === 'campaigns'}"
-                        class="flex items-center px-4 py-3 rounded-xl hover:bg-slate-700 transition-all gap-3 secondary-text"
-                        hx-get="/email_warmup/campaigns.html" hx-target="#main-content" hx-trigger="click">
-                        <i class="material-icons">campaign</i>
-                        Campaigns
-                    </a>
+            <a id="campaigns" href="#" @click="activeTab = 'campaigns'" :class="{'text-indigo-400': activeTab === 'campaigns'}"
+                class="flex items-center px-4 py-3 rounded-xl hover:bg-slate-700 transition-all gap-3 secondary-text"
+                hx-get="/email_warmup/campaigns.html" hx-target="#main-content" hx-trigger="click"
+                hx-on="htmx:afterSettle:startCampaignCounters">
+                <i class="material-icons">campaign</i>
+                Campaigns
+            </a>
+
+
 
                     <a href="#" @click="activeTab = 'inbox'" :class="{'text-indigo-400': activeTab === 'inbox'}"
                         class="flex items-center px-4 py-3 rounded-xl hover:bg-slate-700 transition-all gap-3 secondary-text"
@@ -125,12 +130,24 @@
         demo6.start();
         let demo7 = new CountUp('count7',3,option1);
         demo7.start();
-        let demo8 = new CountUp('count8',8,option1);
-        demo8.start();
-        let demo9 = new CountUp('count9',845,option1);
-        demo9.start();
-    });
+       
+           
+
+    },
+     function closeModal() {
+            document.getElementById('campaign-modal').classList.add('hidden');
+        },
+
+    function showError(event) {
+            // Show the error message in the modal
+            document.getElementById('error-message').innerText = 'Failed to load new campaign data. Please try again later.';
+            document.getElementById('campaign-modal').classList.remove('hidden');
+        }
+        
+        
+    );
     
+   
 </script>
 
 </html>
