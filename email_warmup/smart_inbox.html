@@ -7,10 +7,8 @@
             </p>
         </div>
         <div class="flex gap-3">
-            <button 
-                class="secondary-text px-4 py-2 rounded-xl border border-slate-700 flex items-center gap-2"
-                hx-get="/api/inbox/refresh"
-                hx-trigger="click">
+            <button class="secondary-text px-4 py-2 rounded-xl border border-slate-700 flex items-center gap-2"
+                hx-get="/api/inbox/refresh" hx-trigger="click">
                 <i class="material-icons">refresh</i>
                 Refresh
             </button>
@@ -78,12 +76,9 @@
             <h2 class="text-lg font-semibold">Recent Emails</h2>
             <div class="flex gap-4">
                 <div class="relative">
-                    <input type="search" 
-                           placeholder="Search emails..." 
-                           class="bg-slate-300 rounded-xl px-4 py-2 pl-10 w-64"
-                           hx-get="/api/inbox/search"
-                           hx-trigger="keyup changed delay:500ms"
-                           hx-target="#email-list">
+                    <input type="search" placeholder="Search emails..."
+                        class="bg-slate-300 rounded-xl px-4 py-2 pl-10 w-64" hx-get="/api/inbox/search"
+                        hx-trigger="keyup changed delay:500ms" hx-target="#email-list">
                     <i class="material-icons absolute left-3 top-2.5 text-gray-400">search</i>
                 </div>
                 <select class="bg-slate-300 rounded-xl px-4 py-2">

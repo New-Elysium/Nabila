@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,81 +9,75 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.14.1/cdn.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/htmx/2.0.2/htmx.min.js"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href="/web/styles.css" rel="stylesheet">
+   
+
+    <link href="styles.css" rel="stylesheet">
     <style>
-        [x-cloak] { display: none !important; }
+        [x-cloak] {
+            display: none !important;
+        }
     </style>
+    
 </head>
-<body class="min-h-screen" x-data="{ darkMode: true }">
+
+<body class="min-h-screen" x-data="{ darkMode: true, activeTab: 'dashboard' }">
     <!-- Gradient Background -->
     <div id="gradient"></div>
 
     <div class="flex h-screen overflow-hidden">
         <!-- Sidebar -->
-        <aside class="w-64 h-screen flex flex-col fixed card" x-data="{ activeTab: 'dashboard' }">
+        <aside class="w-64 h-screen flex flex-col fixed card">
             <div class="p-6">
-                <div class="flex items-center gap-2 mb-8">
-                    <img src="/web/dbounce.png" class="w-14" alt="DBounce.Me"/>
+                <div class="flex flex-col items-center gap-2 mb-8">
+                    <img  src="https://cdn.brandfetch.io/id2CH2MTrR/w/600/h/130/theme/dark/logo.png?c=1dxbfHSJFAPEGdCLU4o5B"
+                        class="w-24 " alt="DBounce.Me" />
                     <span class="text-xl font-semibold bg-gradient-text">Email Warmup</span>
+                   
+
                 </div>
                 <nav class="space-y-2">
                     <!-- Navigation items with HTMX -->
-                    <a href="#" 
-                       @click="activeTab = 'dashboard'"
-                       :class="{'text-indigo-400': activeTab === 'dashboard'}"
-                       class="flex items-center px-4 py-3 rounded-xl hover:bg-slate-700 transition-all gap-3 secondary-text"
-                       hx-get="/web/email_warmup/dashboard.html"
-                       hx-target="#main-content"
-                       hx-trigger="click">
-                       <i class="material-icons">dashboard</i>
-                       Dashboard
+                    <a href="#" @click="activeTab = 'dashboard'" :class="{'text-indigo-400': activeTab === 'dashboard'}"
+                        class="flex items-center px-4 py-3 rounded-xl hover:bg-slate-700 transition-all gap-3 secondary-text"
+                        hx-get="/email_warmup/dashboard.html" hx-target="#main-content" hx-trigger="click">
+                        <i class="material-icons">dashboard</i>
+                        Dashboard
                     </a>
-                    
-                    <a href="#" 
-                       @click="activeTab = 'campaigns'"
-                       :class="{'text-indigo-400': activeTab === 'campaigns'}"
-                       class="flex items-center px-4 py-3 rounded-xl hover:bg-slate-700 transition-all gap-3 secondary-text"
-                       hx-get="/web/email_warmup/campaigns.html"
-                       hx-target="#main-content"
-                       hx-trigger="click">
-                       <i class="material-icons">campaign</i>
-                       Campaigns
+
+            <a id="campaigns" href="#" @click="activeTab = 'campaigns'" :class="{'text-indigo-400': activeTab === 'campaigns'}"
+                class="flex items-center px-4 py-3 rounded-xl hover:bg-slate-700 transition-all gap-3 secondary-text"
+                hx-get="/email_warmup/campaigns.html" hx-target="#main-content" hx-trigger="click"
+                hx-on="htmx:afterSettle:startCampaignCounters">
+                <i class="material-icons">campaign</i>
+                Campaigns
+            </a>
+
+
+
+                    <a href="#" @click="activeTab = 'inbox'" :class="{'text-indigo-400': activeTab === 'inbox'}"
+                        class="flex items-center px-4 py-3 rounded-xl hover:bg-slate-700 transition-all gap-3 secondary-text"
+                        hx-get="/email_warmup/smart_inbox.html" hx-target="#main-content" hx-trigger="click">
+                        <i class="material-icons">inbox</i>
+                        Smart Inbox
                     </a>
-                    
-                    <a href="#" 
-                       @click="activeTab = 'inbox'"
-                       :class="{'text-indigo-400': activeTab === 'inbox'}"
-                       class="flex items-center px-4 py-3 rounded-xl hover:bg-slate-700 transition-all gap-3 secondary-text"
-                       hx-get="/web/email_warmup/smart_inbox.html"
-                       hx-target="#main-content"
-                       hx-trigger="click">
-                       <i class="material-icons">inbox</i>
-                       Smart Inbox
-                    </a>
-                    
-                    <a href="#" 
-                       @click="activeTab = 'settings'"
-                       :class="{'text-indigo-400': activeTab === 'settings'}"
-                       class="flex items-center px-4 py-3 rounded-xl hover:bg-slate-700 transition-all gap-3 secondary-text"
-                       hx-get="/web/email_warmup/settings.html"
-                       hx-target="#main-content"
-                       hx-trigger="click">
-                       <i class="material-icons">settings</i>
-                       Settings
+
+                    <a href="#" @click="activeTab = 'settings'" :class="{'text-indigo-400': activeTab === 'settings'}"
+                        class="flex items-center px-4 py-3 rounded-xl hover:bg-slate-700 transition-all gap-3 secondary-text"
+                        hx-get="/email_warmup/settings.html" hx-target="#main-content" hx-trigger="click">
+                        <i class="material-icons">settings</i>
+                        Settings
                     </a>
                 </nav>
             </div>
 
             <div class="mt-auto p-6 border-t border-slate-700 text-center">
-
-                <div class="text-4xl font-bold">85%</div>
+                
+                <div class="text-4xl font-bold">
+                    <span id="count1">0</span>%
+                </div>
                 <div class="secondary-text mb-4">Warmup Score</div>
-
-                <button 
-                    class="gradient-button w-full py-2 px-4 rounded-xl transition-all"
-                    hx-get="/api/warmup/configure"
-                    hx-trigger="click"
-                    hx-target="#warmup-modal"
+                <button class="gradient-button w-full py-2 px-4 rounded-xl transition-all"
+                    hx-get="/api/warmup/configure" hx-trigger="click" hx-target="#warmup-modal"
                     @click="$dispatch('open-modal')">
                     Configure Warmup
                 </button>
@@ -90,16 +85,69 @@
         </aside>
 
         <!-- Main Content -->
-        <main id="main-content" class="flex-1 ml-64 overflow-y-auto p-8"></main>
-
+        <main id="main-content" class="flex-1 ml-64 overflow-y-auto p-8" hx-get="/email_warmup/dashboard.html"
+            hx-trigger="load">
+        </main>
     </div>
 
     <!-- Popup Notifications -->
-    <div class="popup"
-         x-data="{ show: false, message: '', type: 'valid' }"
-         @show-popup.window="show = true; message = $event.detail.message; type = $event.detail.type; setTimeout(() => show = false, 3000)"
-         :class="{ 'show': show, [type]: true }">
+    <div class="popup" x-data="{ show: false, message: '', type: 'valid' }"
+        @show-popup.window="show = true; message = $event.detail.message; type = $event.detail.type; setTimeout(() => show = false, 3000)"
+        :class="{ 'show': show, [type]: true }">
         <span x-text="message"></span>
     </div>
 </body>
+
+<script type="module">
+    import {CountUp} from '/node_modules/countup.js/dist/countUp.min.js';
+    window.addEventListener('load', () => {
+        const option1={
+            decimalPlaces: 0,
+            duration: 2,
+            useGrouping:false,
+        }
+        let demo1 = new CountUp('count1',85,option1);
+        demo1.start();
+        const option2={
+            decimalPlaces: 0,
+            duration: 2,
+            useGrouping:false,
+        }
+        const option3={
+            decimalPlaces: 1,
+            duration: 2,
+            useGrouping:false,
+        }
+        let demo2 = new CountUp('count2',124,option2);
+        demo2.start();
+        let demo3 = new CountUp('count3',98.3,option3);
+        demo3.start();
+        let demo4 = new CountUp('count4',92,option1);
+        demo4.start();
+        let demo5 = new CountUp('count5',2.3,option3);
+        demo5.start();
+        let demo6 = new CountUp('count6',12,option2);
+        demo6.start();
+        let demo7 = new CountUp('count7',3,option1);
+        demo7.start();
+       
+           
+
+    },
+     function closeModal() {
+            document.getElementById('campaign-modal').classList.add('hidden');
+        },
+
+    function showError(event) {
+            // Show the error message in the modal
+            document.getElementById('error-message').innerText = 'Failed to load new campaign data. Please try again later.';
+            document.getElementById('campaign-modal').classList.remove('hidden');
+        }
+        
+        
+    );
+    
+   
+</script>
+
 </html>
