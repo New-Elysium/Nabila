@@ -28,9 +28,9 @@
         <!-- Sidebar -->
         <aside class="w-64 h-screen flex flex-col fixed card">
             <div class="p-6">
-                <div class="flex items-center gap-2 mb-8">
-                    <img src="https://cdn.brandfetch.io/id2CH2MTrR/w/600/h/130/theme/dark/logo.png?c=1dxbfHSJFAPEGdCLU4o5B"
-                        class="w-14" alt="DBounce.Me" />
+                <div class="flex flex-col items-center gap-2 mb-8">
+                    <img  src="https://cdn.brandfetch.io/id2CH2MTrR/w/600/h/130/theme/dark/logo.png?c=1dxbfHSJFAPEGdCLU4o5B"
+                        class="w-24 " alt="DBounce.Me" />
                     <span class="text-xl font-semibold bg-gradient-text">Email Warmup</span>
                 </div>
                 <nav class="space-y-2">
@@ -101,14 +101,36 @@
             duration: 2,
             useGrouping:false,
         }
+        let demo1 = new CountUp('count1',85,option1);
+        demo1.start();
         const option2={
             decimalPlaces: 0,
             duration: 2,
             useGrouping:false,
         }
-        let percentage1 = new CountUp('count1',85,option1);
-        percentage1();
+        const option3={
+            decimalPlaces: 1,
+            duration: 2,
+            useGrouping:false,
+        }
+        let demo2 = new CountUp('count2',124,option2);
+        demo2.start();
+        let demo3 = new CountUp('count3',98.3,option3);
+        demo3.start();
+        let demo4 = new CountUp('count4',92,option1);
+        demo4.start();
+        let demo5 = new CountUp('count5',2.3,option3);
+        demo5.start();
+        let demo6 = new CountUp('count6',12,option2);
+        demo6.start();
+        let demo7 = new CountUp('count7',3,option1);
+        demo7.start();
+        let demo8 = new CountUp('count8',8,option1);
+        demo8.start();
+        let demo9 = new CountUp('count9',845,option1);
+        demo9.start();
     });
+    
 </script>
 
 </html>
