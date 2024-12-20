@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DBounce - Email Warmup</title>
+    <link rel="icon" href="https://img.icons8.com/clouds/100/new-post.png" type="image/x-icon">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.14.1/cdn.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/countup.js/2.0.0/countUp.min.js"
+        integrity="sha512-E0zfDwA1CopT4gzJmj9tMpd7O6pTpuybTK58eY1GwqptdasUohyImuualLt/S5XvM8CDnbaTNP/7MU3bQ5NmQg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/htmx/2.0.2/htmx.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet">
+    <style>
+        [x-cloak] {
+            display: none !important;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen" x-data="{ darkMode: true, activeTab: 'dashboard' }">
+    <!-- Gradient Background -->
+    <div id="gradient"></div>
+
+    <div class="flex h-screen overflow-hidden">
+        <!-- Sidebar -->
+        <aside class="w-64 h-screen flex flex-col fixed card">
+            <div class="p-6">
+                <div class="flex flex-col items-center gap-2 mb-8">
+                    <img src="https://cdn.brandfetch.io/id2CH2MTrR/w/600/h/130/theme/dark/logo.png?c=1dxbfHSJFAPEGdCLU4o5B"
+                        class="w-24 " alt="DBounce.Me" />
+                    <span class="text-xl font-semibold bg-gradient-text">Email Warmup</span>
+                </div>
+                <nav class="space-y-2">
+                    <!-- Navigation items with HTMX -->
+                    <a href="#" @click="activeTab = 'dashboard'"
+                        :class="{'text-indigo-400 bg-gray-800': activeTab === 'dashboard'}"
+                        class="flex items-center px-4 py-3 rounded-xl hover:bg-slate-700 transition-all gap-3 secondary-text"
+                        hx-get="/dashboard" hx-target="#main-content" hx-trigger="click">
+                        <i class="material-icons">dashboard</i>
+                        Dashboard
+                    </a>
+
+                    <a href="#" @click="activeTab = 'campaigns'"
+                        :class="{'text-indigo-400 bg-gray-800': activeTab === 'campaigns'}"
+                        class="flex items-center px-4 py-3 rounded-xl hover:bg-slate-700 transition-all gap-3 secondary-text"
+                        hx-get="/campaigns" hx-target="#main-content" hx-trigger="click">
+                        <i class="material-icons">campaign</i>
+                        Campaigns
+                    </a>
+
+                    <a href="#" @click="activeTab = 'inbox'"
+                        :class="{'text-indigo-400 bg-gray-800': activeTab === 'inbox'}"
+                        class="flex items-center px-4 py-3 rounded-xl hover:bg-slate-700 transition-all gap-3 secondary-text"
+                        hx-get="/smart_inbox" hx-target="#main-content" hx-trigger="click">
+                        <i class="material-icons">inbox</i>
+                        Smart Inbox
+                    </a>
+
+                    <a href="#" @click="activeTab = 'settings'"
+                        :class="{'text-indigo-400 bg-gray-800': activeTab === 'settings'}"
+                        class="flex items-center px-4 py-3 rounded-xl hover:bg-slate-700 transition-all gap-3 secondary-text"
+                        hx-get="/settings" hx-target="#main-content" hx-trigger="click">
+                        <i class="material-icons">settings</i>
+                        Settings
+                    </a>
+                </nav>
+            </div>
+
+            <div class="mt-auto p-6 border-t border-slate-700 text-center">
+                <div class="text-4xl font-bold">
+                    <span id="count1">85</span>%
+                </div>
+                <div class="secondary-text mb-4">Warmup Score</div>
+                <button class="gradient-button w-full py-2 px-4 rounded-xl transition-all"
+                    hx-get="/api/warmup/configure" hx-trigger="click" hx-target="#warmup-modal"
+                    @click="$dispatch('open-modal')">
+                    Configure Warmup
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main id="main-content" class="flex-1 ml-64 overflow-y-auto p-8" hx-get="/dashboard" hx-trigger="load">
+        </main>
+    </div>
+
+    <!-- Popup Notifications -->
+    <div class="popup" x-data="{ show: false, message: '', type: 'valid' }"
+        @show-popup.window="show = true; message = $event.detail.message; type = $event.detail.type; setTimeout(() => show = false, 3000)"
+        :class="{ 'show': show, [type]: true }">
+        <span x-text="message"></span>
+    </div>
+
+    <script type="module">
+        import { CountUp } from 'https://cdn.jsdelivr.net/npm/countup.js@2.0.7/dist/countUp.min.js';
+
+        window.addEventListener('load', () => {
+            const option1 = {
+                decimalPlaces: 0,
+                duration: 2,
+                useGrouping: false,
+            }
+            let demo1 = new CountUp('count1', 85, option1);
+            demo1.start();
+            const option2 = {
+                decimalPlaces: 0,
+                duration: 2,
+                useGrouping: false,
+            }
+            const option3 = {
+                decimalPlaces: 1,
+                duration: 2,
+                useGrouping: false,
+            }
+            let demo2 = new CountUp('count2', 124, option2);
+            demo2.start();
+            let demo3 = new CountUp('count3', 98.3, option3);
+            demo3.start();
+            let demo4 = new CountUp('count4', 92, option1);
+            demo4.start();
+            let demo5 = new CountUp('count5', 2.3, option3);
+            demo5.start();
+            let demo6 = new CountUp('count6', 12, option2);
+            demo6.start();
+            let demo7 = new CountUp('count7', 3, option1);
+            demo7.start();
+
+
+        });
+        document.body.addEventListener('htmx:afterSwap', (event) => {
+            if (event.target.id === 'main-content') {
+                const options = {
+                    decimalPlaces: 0,
+                    duration: 2,
+                    useGrouping: false,
+                };
+                const countUp = new CountUp('count1', 85, options);
+                countUp.start();
+            }
+        });
+
+
+    </script>
+
+</body>
+
+</html>

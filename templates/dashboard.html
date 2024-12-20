@@ -1,0 +1,238 @@
+<div class="max-w-7xl mx-auto">
+    <div class="flex justify-between items-center mb-8">
+        <div>
+            <h1 class="text-2xl font-semibold mb-2">Email Warmup</h1>
+            <p class="secondary-text">
+                Warm up your email addresses automatically with smart inbox placement.
+            </p>
+        </div>
+    <div x-data="{ isOpen: false }" class="relative flex justify-center">
+    <button class="signup-button px-6 py-3 rounded-xl flex items-center gap-2" @click="isOpen = true">
+        <i class="material-icons">add</i>
+        Add New Email 
+    </button>
+
+    
+    <div x-show="isOpen" x-transition:enter="transition duration-300 ease-out"
+        x-transition:enter-start="translate-y-4 opacity-0 sm:translate-y-0 sm:scale-95"
+        x-transition:enter-end="translate-y-0 opacity-100 sm:scale-100" x-transition:leave="transition duration-150 ease-in"
+        x-transition:leave-start="translate-y-0 opacity-100 sm:scale-100"
+        x-transition:leave-end="translate-y-4 opacity-0 sm:translate-y-0 sm:scale-95"
+        class="fixed inset-0 z-10 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+    
+        <div class="flex items-end justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
+            <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+    
+            <div
+                class="relative inline-block px-4 pt-5 pb-4 overflow-hidden text-left align-bottom transition-all transform bg-white rounded-lg shadow-xl dark:bg-gray-900 sm:my-8 sm:align-middle sm:max-w-sm sm:w-full sm:p-6">
+    
+                <div class="mt-4 text-center">
+                    <h3 class="font-medium leading-6 text-gray-800 capitalize dark:text-white" id="modal-title">
+                        Invite your team
+                    </h3>
+                    <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">
+                        Add Email Address to your account
+                    </p>
+                </div>
+    
+                <form action="{{ url_for('warm_up_emails') }}" method="POST">
+                    <div class="mt-2">
+                        <input type="email" name="email" placeholder="Enter Email Address"
+                            class="w-full px-4 py-2 mt-3 text-sm font-medium text-gray-700 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300 dark:bg-gray-800 dark:text-gray-200 dark:border-gray-700 dark:focus:ring-blue-500" />
+                    </div>
+                
+                  <div class="mt-2 flex justify-between items-center gap-1">
+                    <div class="">
+                        <input type="text" name="status" placeholder="Enter Status"
+                            class="w-full px-4 py-2 mt-3 text-sm font-medium text-gray-700 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300 dark:bg-gray-800 dark:text-gray-200 dark:border-gray-700 dark:focus:ring-blue-500" />
+                    </div>
+                    
+                    <div class="">
+                        <input type="number" name="daily_limit" placeholder="Enter Daily Limit"
+                            class="w-full px-4 py-2 mt-3 text-sm font-medium text-gray-700 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300 dark:bg-gray-800 dark:text-gray-200 dark:border-gray-700 dark:focus:ring-blue-500" />
+                    </div>
+                  </div>
+                
+                  <div class="mt-2 flex justify-between items-center gap-1">
+                    <div class="">
+                        <input type="text" name="warm_up_days" placeholder="Enter Warmup Days"
+                            class="w-full px-4 py-2 mt-3 text-sm font-medium text-gray-700 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300 dark:bg-gray-800 dark:text-gray-200 dark:border-gray-700 dark:focus:ring-blue-500" />
+                    </div>
+                    
+                    
+                    
+                    <div class="">
+                        <input type="number" name="inbox_rate" placeholder="Enter Inbox Rate"
+                            class="w-full px-4 py-2 mt-3 text-sm font-medium text-gray-700 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300 dark:bg-gray-800 dark:text-gray-200 dark:border-gray-700 dark:focus:ring-blue-500" />
+                    </div>
+                  </div>
+                    <!-- Action Buttons -->
+                    <div class="mt-4 sm:mt-6 sm:flex sm:items-center sm:-mx-2">
+                        <!-- Cancel Button -->
+                        <button @click="isOpen = false" type="button"
+                            class="w-full px-4 py-2 text-sm font-medium tracking-wide text-gray-700 capitalize transition-colors duration-300 transform border border-gray-200 rounded-md sm:w-1/2 sm:mx-2 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-800 hover:bg-gray-100 focus:outline-none focus:ring focus:ring-gray-300 focus:ring-opacity-40">
+                            Cancel
+                        </button>
+                    
+                    <button @click="isOpen = false; $dispatch('show-popup', { message: 'Adding new email...', type: 'valid' })"
+                        class="signup-button w-3/4 rounded-lg px-4 py-2 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform">
+                        Add Email
+                    </button>
+
+                    
+                    </div>
+                </form>
+                </div>
+            </div>
+        </div>
+    </div>
+ 
+    </div>
+
+
+    </div>
+
+    <!-- Stats Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <div class="card p-6">
+            <div class="flex justify-between items-start mb-4">
+                <div>
+                    <p class="secondary-text mb-1">Daily Warmup Emails</p>
+                    <h3 class="text-2xl font-bold">
+                        <span id="count2">
+                            124
+                        </span>%
+                    </h3>
+                </div>
+                <span class="text-green-400 flex items-center">
+                    <i class="material-icons">trending_up</i>
+                    +
+                    <span id="count6">
+                        12
+                    </span>
+                    %
+                </span>
+            </div>
+            <div class="h-2 bg-slate-700 rounded-full overflow-hidden">
+                <div class="h-2 signup-button" style="width: 75%"></div>
+            </div>
+        </div>
+
+        <div class="card p-6">
+            <div class="flex justify-between items-start mb-4">
+                <div>
+                    <p class="secondary-text mb-1">Inbox Placement</p>
+                    <h3 class="text-2xl font-bold">
+                        <span id="count3">
+                            98.3
+                        </span>%
+                    </h3>
+                </div>
+                <span class="text-green-400 flex items-center">
+                    <i class="material-icons">trending_up</i>
+                    +
+                    <span id="count5">
+                        2.3
+                    </span>
+                    %
+                </span>
+            </div>
+            <div class="h-2 bg-slate-700 rounded-full overflow-hidden">
+                <div class="h-2 gradient-button" style="width: 98%"></div>
+            </div>
+        </div>
+
+        <div class="card p-6">
+            <div class="flex justify-between items-start mb-4">
+                <div>
+                    <p class="secondary-text mb-1">Response Rate</p>
+                    <h3 class="text-2xl font-bold">
+                        <span id="count4">
+                            92
+                        </span>%
+                    </h3>
+                </div>
+                <span class="text-green-400 flex items-center">
+                    <i class="material-icons">trending_up</i>
+                    +
+                    <span id="count7">
+                        3
+                    </span>
+                    %
+                </span>
+            </div>
+            <div class="h-2 bg-slate-700 rounded-full overflow-hidden">
+                <div class="h-2 signup-button" style="width: 92%"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Email Accounts Table -->
+    <div class="card p-6">
+        <div class="flex justify-between items-center mb-6">
+            <h2 class="text-lg font-semibold">Connected Emails</h2>
+            <div class="flex gap-2">
+                <button class="secondary-text p-2 rounded-lg hover:bg-slate-700">
+                    <i class="material-icons">filter_list</i>
+                </button>
+                <button class="secondary-text p-2 rounded-lg hover:bg-slate-700">
+                    <i class="material-icons">refresh</i>
+                </button>
+            </div>
+        </div>
+
+        <div class="overflow-x-auto">
+            <table class="w-full">
+                <thead>
+                    <tr class="text-left border-b border-slate-700">
+                        <th class="px-6 py-4 secondary-text">EMAIL</th>
+                        <th class="px-6 py-4 secondary-text">STATUS</th>
+                        <th class="px-6 py-4 secondary-text">DAILY LIMIT</th>
+                        <th class="px-6 py-4 secondary-text">WARMUP DAYS</th>
+                        <th class="px-6 py-4 secondary-text">INBOX RATE</th>
+                        <th class="px-6 py-4 secondary-text">ACTIONS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for warm_up_email in warm_up_emails %}
+                    <tr class="border-b border-slate-700">
+                        <td class="px-6 py-4">
+                            <div class="flex items-center gap-2">
+                                <i class="material-icons text-indigo-400">mail</i>
+                                <span>{{ warm_up_email.email }}</span>
+                            </div>
+                        </td>
+                        <td class="px-6 py-4">
+                            <span class="bg-green-500/20 text-green-300 px-3 py-1 rounded-full text-sm">
+                                {{ warm_up_email.status }}
+                            </span>
+                        </td>
+                        <td class="px-6 py-4">
+                            {{ warm_up_email.daily_limit }}
+                        </td>
+                        <td class="px-6 py-4">
+                            {{ warm_up_email.warm_up_days }}
+                        </td>
+                        <td class="px-6 py-4">
+                            <div class="flex items-center gap-2">
+                              {{ warm_up_email.inbox_rate }}%
+                                <span class="text-green-400 text-xs">+0.5%</span>
+                            </div>
+                        </td>
+                        <td class="px-6 py-4">
+                            <div class="flex gap-2">
+                                <button class="gradient-button p-2 rounded-lg">
+                                    <i class="material-icons">pause</i>
+                                </button>
+                                <button class="gradient-button p-2 rounded-lg">
+                                    <i class="material-icons">settings</i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
