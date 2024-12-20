@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, jsonify, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///email_warm_up.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 from datetime import datetime
 db = SQLAlchemy(app)
@@ -54,7 +54,10 @@ def settings():
 
 @app.route('/campaigns')
 def campaigns():
-    return render_template('campaigns.html')
+    all_campaigns = Campaigns.query.all()
+    return render_template('campaigns.html', campaigns=all_campaigns)
+
+
 
 @app.route('/smart_inbox')
 def smart_inbox():
@@ -68,6 +71,9 @@ def add_campaign():
         emails_per_day = request.form['emails_per_day']
         total_sent = request.form['total_sent']
         success_rate = request.form['success_rate']
+
+        # Debugging: Check which table the data is being inserted into
+        print(f"Adding to Campaigns Table: {campaign_name}")
 
         # Create a new campaign instance
         new_campaign = Campaigns(
@@ -85,8 +91,6 @@ def add_campaign():
         return redirect(url_for('index'))
 
     return render_template('index.html')
-
-   
 
 
 if __name__ == '__main__':
