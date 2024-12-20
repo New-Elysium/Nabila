@@ -36,29 +36,32 @@
                 </div>
                 <nav class="space-y-2">
                     <!-- Navigation items with HTMX -->
-                    <a href="#" @click="activeTab = 'dashboard'" :class="{'text-indigo-400': activeTab === 'dashboard'}"
+                    <a href="#" @click="activeTab = 'dashboard'"
+                        :class="{'text-indigo-400 bg-gray-800': activeTab === 'dashboard'}"
                         class="flex items-center px-4 py-3 rounded-xl hover:bg-slate-700 transition-all gap-3 secondary-text"
                         hx-get="/dashboard" hx-target="#main-content" hx-trigger="click">
                         <i class="material-icons">dashboard</i>
                         Dashboard
                     </a>
 
-                    <a href="#" @click="activeTab = 'campaigns'" :class="{'text-indigo-400': activeTab === 'campaigns'}"
+                    <a href="#" @click="activeTab = 'campaigns'"
+                        :class="{'text-indigo-400 bg-gray-800': activeTab === 'campaigns'}"
                         class="flex items-center px-4 py-3 rounded-xl hover:bg-slate-700 transition-all gap-3 secondary-text"
-
                         hx-get="/campaigns" hx-target="#main-content" hx-trigger="click">
                         <i class="material-icons">campaign</i>
                         Campaigns
                     </a>
 
-                    <a href="#" @click="activeTab = 'inbox'" :class="{'text-indigo-400': activeTab === 'inbox'}"
+                    <a href="#" @click="activeTab = 'inbox'"
+                        :class="{'text-indigo-400 bg-gray-800': activeTab === 'inbox'}"
                         class="flex items-center px-4 py-3 rounded-xl hover:bg-slate-700 transition-all gap-3 secondary-text"
                         hx-get="/smart_inbox" hx-target="#main-content" hx-trigger="click">
                         <i class="material-icons">inbox</i>
                         Smart Inbox
                     </a>
 
-                    <a href="#" @click="activeTab = 'settings'" :class="{'text-indigo-400': activeTab === 'settings'}"
+                    <a href="#" @click="activeTab = 'settings'"
+                        :class="{'text-indigo-400 bg-gray-800': activeTab === 'settings'}"
                         class="flex items-center px-4 py-3 rounded-xl hover:bg-slate-700 transition-all gap-3 secondary-text"
                         hx-get="/settings" hx-target="#main-content" hx-trigger="click">
                         <i class="material-icons">settings</i>
@@ -92,56 +95,56 @@
         <span x-text="message"></span>
     </div>
 
-<script type="module">
-    import { CountUp } from 'https://cdn.jsdelivr.net/npm/countup.js@2.0.7/dist/countUp.min.js';
+    <script type="module">
+        import { CountUp } from 'https://cdn.jsdelivr.net/npm/countup.js@2.0.7/dist/countUp.min.js';
 
-    window.addEventListener('load', () => {
-      const option1 = {
-            decimalPlaces: 0,
-            duration: 2,
-            useGrouping: false,
-        }
-        let demo1 = new CountUp('count1', 85, option1);
-        demo1.start();
-        const option2 = {
-            decimalPlaces: 0,
-            duration: 2,
-            useGrouping: false,
-        }
-        const option3 = {
-            decimalPlaces: 1,
-            duration: 2,
-            useGrouping: false,
-        }
-        let demo2 = new CountUp('count2', 124, option2);
-        demo2.start();
-        let demo3 = new CountUp('count3', 98.3, option3);
-        demo3.start();
-        let demo4 = new CountUp('count4', 92, option1);
-        demo4.start();
-        let demo5 = new CountUp('count5', 2.3, option3);
-        demo5.start();
-        let demo6 = new CountUp('count6', 12, option2);
-        demo6.start();
-        let demo7 = new CountUp('count7', 3, option1);
-        demo7.start();
-
-
-    }); 
-    document.body.addEventListener('htmx:afterSwap', (event) => {
-        if (event.target.id === 'main-content') {
-            const options = {
+        window.addEventListener('load', () => {
+            const option1 = {
                 decimalPlaces: 0,
                 duration: 2,
                 useGrouping: false,
-            };
-            const countUp = new CountUp('count1', 85, options);
-            countUp.start();
-        }
-    });
-    
+            }
+            let demo1 = new CountUp('count1', 85, option1);
+            demo1.start();
+            const option2 = {
+                decimalPlaces: 0,
+                duration: 2,
+                useGrouping: false,
+            }
+            const option3 = {
+                decimalPlaces: 1,
+                duration: 2,
+                useGrouping: false,
+            }
+            let demo2 = new CountUp('count2', 124, option2);
+            demo2.start();
+            let demo3 = new CountUp('count3', 98.3, option3);
+            demo3.start();
+            let demo4 = new CountUp('count4', 92, option1);
+            demo4.start();
+            let demo5 = new CountUp('count5', 2.3, option3);
+            demo5.start();
+            let demo6 = new CountUp('count6', 12, option2);
+            demo6.start();
+            let demo7 = new CountUp('count7', 3, option1);
+            demo7.start();
 
-</script>
+
+        });
+        document.body.addEventListener('htmx:afterSwap', (event) => {
+            if (event.target.id === 'main-content') {
+                const options = {
+                    decimalPlaces: 0,
+                    duration: 2,
+                    useGrouping: false,
+                };
+                const countUp = new CountUp('count1', 85, options);
+                countUp.start();
+            }
+        });
+
+
+    </script>
 
 </body>
 
